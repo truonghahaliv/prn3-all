@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ex1.Controllers;
 
-[Microsoft.AspNetCore.Components.Route("api/[controller]")]
+[Route("api")]
 [ApiController]
 public class CircleController : ControllerBase
 {

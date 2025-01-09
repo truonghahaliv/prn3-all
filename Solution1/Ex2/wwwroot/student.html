@@ -1,10 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Quản lý sinh viên</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-$END$
+
+<div class="container mt-4">
+    <h1 class="text-center">Quản lý sinh viên</h1>
+
+    <!-- Form tìm kiếm -->
+    <div class="row mb-4">
+        <div class="col-md-6 offset-md-3">
+            <input type="text" class="form-control" id="searchInput" placeholder="Nhập mã hoặc tên sinh viên">
+        </div>
+    </div>
+
+    <!-- Bảng danh sách sinh viên -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Mã SV</th>
+            <th>Tên SV</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="studentList">
+        <!-- Dữ liệu sinh viên sẽ được thêm vào đây -->
+        </tbody>
+    </table>
+
+    <!-- Form Thêm/Sửa sinh viên -->
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 id="formTitle">Thêm sinh viên</h4>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="studentId">
+                    <div class="form-group">
+                        <label for="studentCode">Mã sinh viên:</label>
+                        <input type="text" class="form-control" id="studentCode">
+                    </div>
+                    <div class="form-group">
+                        <label for="studentName">Tên sinh viên:</label>
+                        <input type="text" class="form-control" id="studentName">
+                    </div>
+                    <button class="btn btn-primary" id="saveButton">Lưu</button>
+                    <button class="btn btn-danger" id="cancelButton">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var students = [
+            { id: 1, code: 'SV001', name: 'Nguyễn Văn A' },
+            { id: 2, code: 'SV002', name: 'Trần Thị B' }
+        ];
+
+        // Hiển thị danh sách sinh viên
+        function showStudentList() {
+            $('#studentList').empty();
+            for (var i = 0; i < students.length; i++) {
+                var student = students[i];
+                var row = `<tr>
+                               <td>${student.code}</td>
+                               <td>${student.name}</td>
+                               <td><button class="btn btn-warning btn-sm edit" data-id="${student.id}">Sửa</button> 
+                                   <button class="btn btn-danger btn-sm delete" data-id="${student.id}">Xóa</button></td>
+                           </tr>`;
+                $('#studentList').append(row);
+            }
+        }
+
+        // Tìm kiếm sinh viên
+        $('#searchInput').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
+            var filteredStudents = students.filter(function(student) {
+                return student.code.toLowerCase().indexOf(searchText) !== -1 ||
+                    student.name.toLowerCase().indexOf(searchText) !== -1;
+            });
+            showStudentList(filteredStudents);
+        });
+
+        // Hiển thị form Thêm/Sửa
+        $('#studentList').on('click', '.edit', function() {
+            var studentId = $(this).data('id');
+            var student = students.find(function(s) {
+                return s.id === studentId;
+            });
+            $('#formTitle').text('Sửa sinh viên');
+            $('#studentId').val(student.id);
+            $('#studentCode').val(student.code);
+            $('#studentName').val(student.name);
+        });
+
+        // Xóa sinh viên
+        $('#studentList').on('click', '.delete', function() {
+            var studentId = $(this).data('id');
+            students = students.filter(function(s) {
+                return s.id !== studentId;
+            });
+            showStudentList();
+        });
+
+        // Lưu sinh viên
+        $('#saveButton').click(function() {
+            var studentId = $('#studentId').val();
+            var studentCode = $('#studentCode').val();
+            var studentName = $('#studentName').val();
+
+            if (studentId) {
+                var student = students.find(function(s) {
+                    return s.id === parseInt(studentId);
+                });
+                student.code = studentCode;
+                student.name = studentName;
+            } else {
+                var newStudent = { id: students.length + 1, code: studentCode, name: studentName };
+                students.push(newStudent);
+            }
+
+            $('#formTitle').text('Thêm sinh viên');
+            $('#studentId').val('');
+            $('#studentCode').val('');
+            $('#studentName').val('');
+
+            showStudentList();
+        });
+
+        // Hủy form
+        $('#cancelButton').click(function() {
+            $('#formTitle').text('Thêm sinh viên');
+            $('#studentId').val('');
+            $('#studentCode').val('');
+            $('#studentName').val('');
+        });
+
+        showStudentList();
+    });
+</script>
 </body>
 </html>

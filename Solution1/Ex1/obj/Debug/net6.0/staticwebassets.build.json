@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "lFT9dUtv7UP73I8M2U3m5Lh32gtkqfwPZJoL0nD7kfc=",
+  "Source": "Ex1",
+  "BasePath": "_content/Ex1",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Ex1\\wwwroot",
+      "Source": "Ex1",
+      "ContentRoot": "D:\\New folder\\Solution1\\Ex1\\wwwroot\\",
+      "BasePath": "_content/Ex1",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\New folder\\Solution1\\Ex1\\wwwroot\\calculate.html",
+      "SourceId": "Ex1",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\New folder\\Solution1\\Ex1\\wwwroot\\",
+      "BasePath": "_content/Ex1",
+      "RelativePath": "calculate.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\calculate.html"
+    }
+  ]
+}
