@@ -1,0 +1,6 @@
+﻿services:
+  ex1:
+    image: ex1
+    build:
+      context: .
+      dockerfile: Ex1/Dockerfile
